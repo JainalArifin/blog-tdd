@@ -18,6 +18,7 @@ describe('api endpoint create new article', function() {
     .post('/article')
     .send(newArticle)
     .end(function (err, response) {
+      console.log('--->', response.body)
       response.status.should.equal(200)
       response.body.should.be.an('Object')
       response.body.should.have.property('_id')
@@ -31,20 +32,15 @@ describe('api endpoint create new article', function() {
   })
 })
 
-describe('api endpoint get article', function() {
+describe('api endpoint get article manpilkan semua rticle', function() {
   it('harus mengembalikan data article yang di get', function(done) {
     chai.request(app)
     .get('/article')
     .send(newArticle)
     .end(function (err, response) {
+      // console.log('menampilkan article --->', response.body)
       response.status.should.equal(200)
       response.body.should.be.an('array')
-      response.body.should.have.property('_id')
-      response.body.should.have.property('title')
-      response.body.should.have.property('content')
-      response.body.should.have.property('author')
-      response.body.title.should.equal('pengecekan title')
-      response.body.content.should.equal('pengecekan content')
       done()
     })
   })
@@ -62,7 +58,6 @@ describe('api endpoint yang menampilkan berdasarkan ID yang di pilih', function(
       .end(function (err, response) {
         response.status.should.equal(200)
         response.body.should.be.an('Object')
-        response.body.should.have.property('_id')
         done()
       })
     })
@@ -81,7 +76,6 @@ describe('api endpoint yang menampilkan berdasarkan ID yang di pilih', function(
       .end(function (err, response) {
         response.status.should.equal(200)
         response.body.should.be.an('Object')
-        response.body.should.have.property('_id')
         done()
       })
     })
@@ -98,9 +92,9 @@ describe('api endpoint yang akan menghapus berdasarkan ID yang di pilih', functi
       chai.request(app)
       .delete(`/article/${response.body._id}`)
       .end(function (err, response) {
+        console.log('respons yang di delete -->', response.body)
         response.status.should.equal(200)
         response.body.should.be.an('Object')
-        response.body.should.have.property('_id')
         done()
       })
     })
